@@ -1,31 +1,26 @@
 def polish_notation_one_operand():
     user_input = input('Введите выражение в форме префиксной нотации, используя пробел между операндом и переменными:\n').split()
+    assert len(user_input) == 3, 'В вашем выражении чего-то не хватает или есть что-то лишнее'
+    operator = user_input[0]
+    assert operator in ['+', '-', '*', '/'], 'Вы указали не допустимый операнд (допустимые операнды: +, -, /, *)'
     try:
-        if user_input[0] == '+':
-            print(f'Результат вычисления {int(user_input[1]) + int(user_input[2])}')
-        elif user_input[0] == '-':
-            print(f'Результат вычисления {int(user_input[1]) - int(user_input[2])}')
-        elif user_input[0] == '/':
-            print(f'Результат вычисления {int(user_input[1]) / int(user_input[2])}')
-        elif user_input[0] == '*':
-            print(f'Результат вычисления {int(user_input[1]) * int(user_input[2])}')
-        else:
-            assert False, 'AssertionError - Вы не указали допустимый операнд (+, -, /, *)'
-
-    except AssertionError as e:
-        print(f'Введенное выражение не содержит операнд, текст исключения {e}')
-
+        operand1 = int(user_input[1])
+        operand2 = int(user_input[2])
     except ValueError as e:
-        print(f'Введенное выражение содержит более 2 аргументов и 1 опранда или букву, текст исключения {e}')
+        print(f'Введенное выражение содержит букву, текст исключения {e}')
+        return None
+    if operator == '+':
+        print(f'Результат вычисления {operand1 + operand2}')
+    elif operator == '-':
+        print(f'Результат вычисления {operand1 - operand2}')
+    elif operator == '*':
+        print(f'Результат вычисления {operand1 * operand2}')
 
+    try:
+        if operator == '/':
+            print(f'Результат вычисления {operand1 / operand2}')
     except ZeroDivisionError as e:
         print(f'Нельзя делить на 0, текст исключения {e}')
-
-    except TypeError as e:
-        print(f'Переменная не может быть не числом, текст исключения {e}')
-
-    except IndexError as e:
-        print(f'Вы не задали арифметическое выражение, текст исключения {e}')
 
     finally:
         print('Начните заново')
